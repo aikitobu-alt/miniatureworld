@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.eggs/
+build/
+dist/
+
+# Env / secrets
+.env
+.env.local
+*.pem
+token.json
+client_secret*.json
+credentials.json
+
+# Runtime data
+data/
+outputs/
+*.sqlite
+*.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store

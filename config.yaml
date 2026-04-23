@@ -1,0 +1,56 @@
+# Pipeline configuration - edit freely
+channel:
+  name: "My Miniature World"
+  handle: "@myminiatureworld4u"
+  niche: "miniature farming + satisfying + ASMR faceless shorts"
+  description: |
+    Tiny farms, tiny tools, tiny harvests. Satisfying miniature-world videos
+    where every scene is a bite-sized, ASMR-flavored moment.
+
+style:
+  # Overall vibe for script + visuals
+  tone: "cozy, wondrous, ASMR, kid-safe"
+  voice_description: "soft-spoken, curious, warm, slight whisper"
+  video_aesthetic: "photoreal miniature, shallow DOF, golden-hour soft light, tilt-shift feel"
+  color_palette: ["sage green", "honey gold", "terracotta", "cream"]
+
+short:
+  target_duration_seconds: 38    # keep well under 60s; YT treats <60s + 9:16 as a Short
+  resolution: [1080, 1920]
+  fps: 30
+  num_scenes: 5                  # scene count; each ~target/num duration
+  subtitle_font_size: 68
+  subtitle_outline: 4
+
+providers:
+  llm:
+    model: "gpt-4o-mini"
+  tts:
+    provider: "elevenlabs"       # or "openai" or "none"
+    voice_id: "EXAVITQu4vr4xnSDxMaL"   # Bella - default; replace with your preferred ElevenLabs voice
+    model: "eleven_turbo_v2_5"
+  video:
+    provider: "kling"            # "kling" | "runway" | "stills"  ("stills" = images + Ken Burns only, cheapest)
+    kling:
+      model: "fal-ai/kling-video/v1.6/standard/text-to-video"
+      duration_seconds: 5
+    runway:
+      model: "gen3a_turbo"
+      duration_seconds: 5
+
+upload:
+  enabled: true
+  privacy_status: "public"        # public | unlisted | private
+  category_id: "22"               # 22 = People & Blogs; 24 = Entertainment
+  made_for_kids: false
+  title_prefix: ""
+  default_tags: ["shorts", "miniature", "asmr", "satisfying", "tinyworld"]
+
+cadence:
+  # Used by the GitHub Actions scheduler; local cron is fine too.
+  uploads_per_day: 1
+
+music:
+  # Drop royalty-free loops into assets/music/; one is chosen per short.
+  bed_volume_db: -18
+  voiceover_volume_db: -3
