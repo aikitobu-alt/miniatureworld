@@ -8,7 +8,6 @@ channel:
     where every scene is a bite-sized, ASMR-flavored moment.
 
 style:
-  # Overall vibe for script + visuals
   tone: "cozy, wondrous, ASMR, kid-safe"
   voice_description: "soft-spoken, curious, warm, slight whisper"
   video_aesthetic: "photoreal miniature, shallow DOF, golden-hour soft light, tilt-shift feel"
@@ -18,19 +17,23 @@ short:
   target_duration_seconds: 38    # keep well under 60s; YT treats <60s + 9:16 as a Short
   resolution: [1080, 1920]
   fps: 30
-  num_scenes: 5                  # scene count; each ~target/num duration
+  num_scenes: 5
   subtitle_font_size: 68
   subtitle_outline: 4
 
+# ============================================================
+# FREE STACK (default) - $0 per Short
+# ============================================================
 providers:
   llm:
-    model: "gpt-4o-mini"
+    provider: "gemini"             # "gemini" (free) | "openai" (paid)
+    model: "gemini-2.5-flash"      # free tier; "gemini-2.0-flash" works when Google enables it for your project
   tts:
-    provider: "elevenlabs"       # or "openai" or "none"
-    voice_id: "EXAVITQu4vr4xnSDxMaL"   # Bella - default; replace with your preferred ElevenLabs voice
-    model: "eleven_turbo_v2_5"
+    provider: "edge"               # "edge" (free, Microsoft Edge TTS) | "elevenlabs" | "openai" | "none"
+    voice_id: "en-US-AriaNeural"   # edge voices: AriaNeural, JennyNeural, GuyNeural, AvaNeural, etc.
+    model: "eleven_turbo_v2_5"     # only used when provider=elevenlabs
   video:
-    provider: "kling"            # "kling" | "runway" | "stills"  ("stills" = images + Ken Burns only, cheapest)
+    provider: "pollinations"       # "pollinations" (FREE, image+KenBurns) | "kling" | "runway" | "stills"
     kling:
       model: "fal-ai/kling-video/v1.6/standard/text-to-video"
       duration_seconds: 5
@@ -38,19 +41,23 @@ providers:
       model: "gen3a_turbo"
       duration_seconds: 5
 
+# Premium-path recipe (uncomment + swap if/when you have budget):
+# providers:
+#   llm:    { provider: "openai",     model: "gpt-4o-mini" }
+#   tts:    { provider: "elevenlabs", voice_id: "EXAVITQu4vr4xnSDxMaL" }
+#   video:  { provider: "kling" }
+
 upload:
   enabled: true
-  privacy_status: "public"        # public | unlisted | private
-  category_id: "22"               # 22 = People & Blogs; 24 = Entertainment
+  privacy_status: "public"          # public | unlisted | private
+  category_id: "22"                 # 22 = People & Blogs; 24 = Entertainment
   made_for_kids: false
   title_prefix: ""
   default_tags: ["shorts", "miniature", "asmr", "satisfying", "tinyworld"]
 
 cadence:
-  # Used by the GitHub Actions scheduler; local cron is fine too.
   uploads_per_day: 1
 
 music:
-  # Drop royalty-free loops into assets/music/; one is chosen per short.
   bed_volume_db: -18
   voiceover_volume_db: -3

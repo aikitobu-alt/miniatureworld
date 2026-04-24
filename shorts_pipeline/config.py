@@ -20,6 +20,7 @@ class Env(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     openai_api_key: str | None = Field(default=None, alias="OPENAI_API_KEY")
+    gemini_api_key: str | None = Field(default=None, alias="GEMINI_API_KEY")
     elevenlabs_api_key: str | None = Field(default=None, alias="ELEVENLABS_API_KEY")
     fal_key: str | None = Field(default=None, alias="FAL_KEY")
     runway_api_key: str | None = Field(default=None, alias="RUNWAY_API_KEY")
@@ -69,13 +70,15 @@ class VideoCfg(BaseModel):
 
 
 class TTSCfg(BaseModel):
-    provider: str = "elevenlabs"
-    voice_id: str = "EXAVITQu4vr4xnSDxMaL"
+    provider: str = "edge"
+    # ElevenLabs voice_id OR edge-tts voice name OR OpenAI voice; read by the adapter.
+    voice_id: str = "en-US-AriaNeural"
     model: str = "eleven_turbo_v2_5"
 
 
 class LLMCfg(BaseModel):
-    model: str = "gpt-4o-mini"
+    provider: str = "gemini"
+    model: str = "gemini-2.5-flash"
 
 
 class ProvidersCfg(BaseModel):

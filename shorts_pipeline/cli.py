@@ -22,22 +22,27 @@ def check() -> None:
     e = env()
     issues: list[str] = []
 
-    if not e.openai_api_key:
-        issues.append("OPENAI_API_KEY missing (needed for topic + script generation)")
+    llm = cfg.providers.llm.provider
+    if llm == "openai" and not e.openai_api_key:
+        issues.append("OPENAI_API_KEY missing (LLM provider=openai)")
+    if llm == "gemini" and not e.gemini_api_key:
+        issues.append("GEMINI_API_KEY missing (LLM provider=gemini)")
 
     tts = cfg.providers.tts.provider
     if tts == "elevenlabs" and not e.elevenlabs_api_key:
-        issues.append("ELEVENLABS_API_KEY missing")
+        issues.append("ELEVENLABS_API_KEY missing (TTS provider=elevenlabs)")
     if tts == "openai" and not e.openai_api_key:
-        issues.append("OPENAI_API_KEY missing (for TTS)")
+        issues.append("OPENAI_API_KEY missing (TTS provider=openai)")
+    # tts=edge and tts=none need no key.
 
     vp = cfg.providers.video.provider
     if vp == "kling" and not e.fal_key:
-        issues.append("FAL_KEY missing (needed for Kling)")
+        issues.append("FAL_KEY missing (video provider=kling)")
     if vp == "runway" and not e.runway_api_key:
-        issues.append("RUNWAY_API_KEY missing")
+        issues.append("RUNWAY_API_KEY missing (video provider=runway)")
     if vp == "stills" and not e.openai_api_key:
-        issues.append("OPENAI_API_KEY missing (needed for stills)")
+        issues.append("OPENAI_API_KEY missing (video provider=stills)")
+    # vp=pollinations needs no key.
 
     if cfg.upload.enabled and not all(
         [e.yt_client_id, e.yt_client_secret, e.yt_refresh_token]
