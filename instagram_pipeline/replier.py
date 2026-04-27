@@ -156,7 +156,7 @@ def process_comments(max_media: int = 10, dry_run: bool = False) -> int:
                 except Exception as e:
                     rprint(f"[red]Failed to reply to {cid}:[/red] {e}")
                     continue
-            record_comment_reply(cid, media_id, reply)
+                record_comment_reply(cid, media_id, reply)
             sent += 1
     return sent
 
@@ -214,7 +214,7 @@ def process_dms(max_convos: int = 20, dry_run: bool = False) -> int:
                 except Exception as e:
                     rprint(f"[red]Failed to send DM to {from_id}:[/red] {e}")
                     continue
-            record_message_reply(mid, from_id, reply)
+                record_message_reply(mid, from_id, reply)
             sent += 1
             break  # Reply to the latest unread from this conversation only.
     return sent
