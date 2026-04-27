@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import re
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -64,9 +65,13 @@ Return JSON:
 
 
 def _extract_first_frame(video_path: Path) -> Path | None:
-    """Pull a representative frame from a video for Gemini vision."""
+    """Pull a representative frame from a video for Gemini vision.
+
+    Writes to the system temp dir so the frame never ends up inside the
+    content directory (which `discover_next()` scans).
+    """
     try:
-        out = video_path.parent / f".{video_path.stem}_frame.jpg"
+        out = Path(tempfile.gettempdir()) / f"igbot_{video_path.stem}_frame.jpg"
         subprocess.run(
             [
                 "ffmpeg", "-y", "-loglevel", "error",

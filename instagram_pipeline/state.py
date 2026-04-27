@@ -79,9 +79,12 @@ def mark_posted(
 
 
 def list_posted_media_ids() -> list[str]:
+    """Return posted Instagram media IDs, newest first."""
     with conn() as c:
         return [r["ig_media_id"] for r in c.execute(
-            "SELECT ig_media_id FROM posted_media WHERE ig_media_id IS NOT NULL"
+            "SELECT ig_media_id FROM posted_media "
+            "WHERE ig_media_id IS NOT NULL "
+            "ORDER BY posted_at DESC"
         )]
 
 

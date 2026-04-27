@@ -37,7 +37,9 @@ def discover_next() -> Path | None:
         return None
     files = sorted(
         p for p in root.rglob("*")
-        if p.is_file() and p.suffix.lower() in MEDIA_SUFFIXES
+        if p.is_file()
+        and p.suffix.lower() in MEDIA_SUFFIXES
+        and not p.name.startswith(".")
     )
     for p in files:
         rel = p.relative_to(project_root()).as_posix()
