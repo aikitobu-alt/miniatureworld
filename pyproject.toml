@@ -21,17 +21,20 @@ dependencies = [
     "rich>=13.7",
     "pillow>=10.3",
     "tenacity>=8.4",
+    "fastapi>=0.110",
+    "uvicorn>=0.29",
 ]
 
 [project.scripts]
 shorts = "shorts_pipeline.cli:app"
+igbot  = "instagram_pipeline.cli:app"
 
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["shorts_pipeline*"]
+include = ["shorts_pipeline*", "instagram_pipeline*"]
 
 [tool.ruff]
 line-length = 100
