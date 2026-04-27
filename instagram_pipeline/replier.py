@@ -140,6 +140,7 @@ def process_comments(max_media: int = 10, dry_run: bool = False) -> int:
                 continue
             if _is_blocked(text):
                 rprint(f"[yellow]Skipping blocked comment:[/yellow] {text!r}")
+                record_comment_reply(cid, media_id, "[BLOCKED]")
                 continue
             decision = _classify_and_reply(text, kind="comment")
             if decision.get("action") != "reply":
