@@ -61,3 +61,19 @@ cadence:
 music:
   bed_volume_db: -18
   voiceover_volume_db: -3
+
+# ============================================================
+# Instagram auto-poster + DM/comment auto-reply
+# ============================================================
+instagram:
+  handle: "rupsa.chandra"
+  content_dir: "ig_content"         # drop Reels (.mp4) / images (.jpg/.png) here
+  caption_style: "story"            # short | story | asmr | educational
+  reply_tone: "hybrid"              # friendly | casual | helpful | hybrid
+  hashtag_count: 12
+  posts_per_day: 1
+  niche_keywords: ["miniature", "asmr", "satisfying", "art", "diy", "tinyworld"]
+  reply_to_comments: true
+  reply_to_dms: true
+  reply_max_age_hours: 48
+  spam_block_keywords: ["http://", "free followers", "dm me", "telegram", "t.me/"]
