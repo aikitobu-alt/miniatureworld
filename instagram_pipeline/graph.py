@@ -5,6 +5,7 @@ Docs: https://developers.facebook.com/docs/instagram-platform/content-publishing
 
 from __future__ import annotations
 
+import json
 import time
 from typing import Any
 
@@ -149,7 +150,7 @@ def send_message(recipient_id: str, text: str) -> dict[str, Any]:
     return _post(
         f"/{_ig_user_id()}/messages",
         {
-            "recipient": f'{{"id":"{recipient_id}"}}',
-            "message": f'{{"text":{text!r}}}',
+            "recipient": json.dumps({"id": recipient_id}),
+            "message": json.dumps({"text": text}),
         },
     )

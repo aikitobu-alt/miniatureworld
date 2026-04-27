@@ -38,7 +38,8 @@ async def verify(request: Request) -> Any:
     mode = params.get("hub.mode")
     token = params.get("hub.verify_token")
     challenge = params.get("hub.challenge")
-    if mode == "subscribe" and token == ig_env().webhook_verify_token:
+    expected = ig_env().webhook_verify_token
+    if mode == "subscribe" and expected and token and token == expected:
         return int(challenge or "0")
     raise HTTPException(status_code=403, detail="verify token mismatch")
 
